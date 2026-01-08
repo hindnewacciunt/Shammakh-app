@@ -50,8 +50,7 @@ class OffersScreen extends StatelessWidget {
               );
             },
           ),
-        ) : Center(child: Text(getTranslated('No banner available',context)),) : OfferShimmer();
-
+        ) : Center(child: Text('No banner available')) : OfferShimmer();
       },
     ));
   }

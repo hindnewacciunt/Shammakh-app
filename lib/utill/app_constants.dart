@@ -1,8 +1,7 @@
 import 'package:flutter_shammakh_ecommerce/data/model/response/language_model.dart';
-import 'package:flutter_shammakh_ecommerce/utill/images.dart';
 
 class AppConstants {
-  static const String APP_NAME = 'shammakh';
+    static const String APP_NAME = 'متجر شماخ';
   static const String BASE_URL = 'http://shammakh.store';
   static const String USER_ID = 'userId';
   static const String NAME = 'name';
@@ -124,7 +123,8 @@ class AppConstants {
 
   static List<LanguageModel> languages = [
 
-    LanguageModel(imageUrl: Images.arabic, languageName: 'Arabic', countryCode: 'SA', languageCode: 'ar'),
     LanguageModel(imageUrl: '', languageName: 'English', countryCode: 'US', languageCode: 'en'),
+    LanguageModel(imageUrl: '', languageName: 'Arabic', countryCode: 'SA', languageCode: 'ar'),
+
   ];
 }

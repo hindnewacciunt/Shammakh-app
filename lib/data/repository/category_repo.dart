@@ -10,7 +10,7 @@ class CategoryRepo {
 
   Future<ApiResponse> getCategoryList() async {
     try {
-      final response = await dioClient.getTranslated(
+      final response = await dioClient.get(
         AppConstants.CATEGORIES_URI);
       return ApiResponse.withSuccess(response);
     } catch (e) {

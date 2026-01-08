@@ -20,7 +20,7 @@ class DioClient {
         this.sharedPreferences,
       }) {
     token = sharedPreferences.getString(AppConstants.TOKEN);
-    countryCode = sharedPreferences.getString(AppConstants.COUNTRY_CODE) ?? AppConstants.languages[0].countryCode;
+    countryCode = sharedPreferences.getString(AppConstants.COUNTRY_CODE) ?? AppConstants.languages[1].countryCode;
     print("NNNN $token");
     dio = dioC ?? Dio();
     dio
@@ -147,6 +147,4 @@ class DioClient {
       throw e;
     }
   }
-
-  getTranslated(String categories_uri) {}
 }

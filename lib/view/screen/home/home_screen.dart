@@ -10,10 +10,12 @@ import 'package:flutter_shammakh_ecommerce/provider/category_provider.dart';
 import 'package:flutter_shammakh_ecommerce/provider/featured_deal_provider.dart';
 import 'package:flutter_shammakh_ecommerce/provider/flash_deal_provider.dart';
 import 'package:flutter_shammakh_ecommerce/provider/home_category_product_provider.dart';
+import 'package:flutter_shammakh_ecommerce/provider/localization_provider.dart';
 import 'package:flutter_shammakh_ecommerce/provider/product_provider.dart';
 import 'package:flutter_shammakh_ecommerce/provider/splash_provider.dart';
 import 'package:flutter_shammakh_ecommerce/provider/theme_provider.dart';
 import 'package:flutter_shammakh_ecommerce/provider/top_seller_provider.dart';
+import 'package:flutter_shammakh_ecommerce/provider/wishlist_provider.dart';
 import 'package:flutter_shammakh_ecommerce/utill/color_resources.dart';
 import 'package:flutter_shammakh_ecommerce/utill/custom_themes.dart';
 import 'package:flutter_shammakh_ecommerce/utill/dimensions.dart';
@@ -41,6 +43,7 @@ import 'package:flutter_shammakh_ecommerce/view/screen/home/widget/top_seller_vi
 import 'package:flutter_shammakh_ecommerce/view/screen/order/order_screen.dart';
 import 'package:flutter_shammakh_ecommerce/view/screen/product/view_all_product_screen.dart';
 import 'package:flutter_shammakh_ecommerce/view/screen/search/search_screen.dart';
+import 'package:flutter_shammakh_ecommerce/view/screen/setting/settings_screen.dart';
 import 'package:flutter_shammakh_ecommerce/view/screen/topSeller/all_top_seller_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -55,15 +58,21 @@ import '../more/widget/html_view_Screen.dart';
 import '../more/widget/sign_out_confirmation_dialog.dart';
 import '../notification/notification_screen.dart';
 import '../profile/address_list_screen.dart';
+import '../profile/profile_screen.dart';
 import '../support/support_ticket_screen.dart';
 
 
 class HomePage extends StatefulWidget {
+
   @override
+
+
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   final ScrollController _scrollController = ScrollController();
 
   Future<void> _loadData(BuildContext context, bool reload) async {
@@ -92,7 +101,19 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    {
+      isGuestMode = !Provider.of<AuthProvider>(context, listen: false).isLoggedIn();
+      if(!isGuestMode) {
+        Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
+        Provider.of<WishListProvider>(context, listen: false).initWishList(
+          context, Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode,
+        );
+        version = Provider.of<SplashProvider>(context,listen: false).configModel.version != null?Provider.of<SplashProvider>(context,listen: false).configModel.version:'version';
+      }
+      singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel.businessMode == "single";
 
+      super.initState();
+    }
     singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel.businessMode == "single";
     Provider.of<FlashDealProvider>(context, listen: false).getMegaDealList(true, context, true);
 
@@ -113,6 +134,7 @@ class _HomePageState extends State<HomePage> {
 
     List<String> types =[getTranslated('new_arrival', context),getTranslated('top_product', context), getTranslated('best_selling', context),  getTranslated('discounted_product', context)];
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: ColorResources.getHomeBg(context),
       resizeToAvoidBottomInset: false,
 
@@ -131,19 +153,24 @@ class _HomePageState extends State<HomePage> {
               CustomScrollView(
                 controller: _scrollController,
                 slivers: [
+
                   // App Bar
 
                   SliverAppBar(
 
                     leading: IconButton(
                       icon: Icon(Icons.menu),
-                      onPressed: () => {Drawer},
+                      color: Colors.redAccent,
+                      tooltip: 'Menu',
+                      // onPressed: () {},
+                      //  onPressed: () => {Navigator.push(context, MaterialPageRoute(builder: (_) => Drawer()))},
+                      onPressed: () => _scaffoldKey.currentState.openDrawer(),
                     ),
 
                     pinned: true,
                     centerTitle: true,
                     automaticallyImplyLeading: false,
-                    backgroundColor: Colors.grey,
+                    backgroundColor: Colors.white,
                     title: Image.asset(Images.logo_with_name_image, height: 35),
                     actions: [
                       Padding(
@@ -232,6 +259,7 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
                             child: CategoryView(isHomePage: true),
                           ),
+
 
 
 
@@ -479,26 +507,89 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+
       ),
 
       drawer: Drawer(
 
         child: ListView(
+
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
+            // const DrawerHeader(
+            //
+            //
+            //   decoration: BoxDecoration(
+            //
+            //     color: Colors.red,
+            //   ),
+            //   // child: Text('مـتجـر شمــاخ الإلكتروني'),
+            //
+            // ),
+
+            Container(
+              width: 100,
+              height:  200,
+              padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_LARGE),
               decoration: BoxDecoration(
+
                 color: Colors.red,
               ),
-              child: Text('مـتجـر شمــاخ الإلكتروني'),
+              child: Consumer<ProfileProvider>(
+
+                builder: (context, profile, child) {
+                  return Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+
+                        // Padding(
+                        //
+                        //   padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_LARGE,),
+                        //   child: Image.asset(Images.logo_with_name_image, height: 35, color: ColorResources.WHITE),
+                        // ),
+                        Expanded(child: SizedBox.shrink()),
+                        InkWell(
+                          onTap: () {
+                            if(isGuestMode) {
+                              showAnimatedDialog(context, GuestDialog(), isFlip: true);
+                            }else {
+                              if(Provider.of<ProfileProvider>(context, listen: false).userInfoModel != null) {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfileScreen()));
+                              }
+                            }
+                          },
+                          child: Row(
+
+                              children: [
+                                Align( alignment:Alignment.center),
+                                Text(!isGuestMode ? profile.userInfoModel != null ? '${profile.userInfoModel.fName} ${profile.userInfoModel.lName}' : 'Full Name' : 'Guest',
+                                  style: titilliumRegular.copyWith(color: ColorResources.WHITE),textAlign: TextAlign.center,),
+                                SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
+                                isGuestMode ? CircleAvatar(child: Icon(Icons.person, size: 45)) :
+                                profile.userInfoModel == null ? CircleAvatar(child: Icon(Icons.person, size: 15,)) : ClipRRect(
+
+                                  borderRadius: BorderRadius.circular(75),
+                                  child: FadeInImage.assetNetwork(
+                                    placeholder: Images.logo_image, width: 35, height: 35, fit: BoxFit.fill,
+                                    image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.customerImageUrl}/${profile.userInfoModel.image}',
+                                    imageErrorBuilder: (c, o, s) => CircleAvatar(child: Icon(Icons.person, size: 45)),
+                                  ),
+                                ),
+                              ]),
+                        ),
+                      ]);
+                },
+              ),
             ),
 
             Container(
               margin: EdgeInsets.only(top: 12),
               decoration: BoxDecoration(
 
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(100), topRight: Radius.circular(90)),
               ),
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
@@ -509,36 +600,46 @@ class _HomePageState extends State<HomePage> {
                       TitleButton(image: Images.more_filled_image, title: getTranslated('all_category', context), navigateTo: AllCategoryScreen()),
                       TitleButton(image: Images.notification_filled, title: getTranslated('notification', context), navigateTo: NotificationScreen()),
                       //TODO: seller
+                      TitleButton(image: Images.settings, title: getTranslated('settings', context), navigateTo: SettingsScreen()),
                       TitleButton(image: Images.preference, title: getTranslated('support_ticket', context), navigateTo: SupportTicketScreen()),
-                      TitleButton(image: Images.term_condition, title: getTranslated('terms_condition', context), navigateTo: HtmlViewScreen(
-                        title: getTranslated('terms_condition', context),
-                        url: Provider.of<SplashProvider>(context, listen: false).configModel.termsConditions,
-                      )),
+                      // TitleButton(image: Images.term_condition, title: getTranslated('terms_condition', context), navigateTo: HtmlViewScreen(
+                      //   title: getTranslated('terms_condition', context),
+                      //   url: Provider.of<SplashProvider>(context, listen: false).configModel.termsConditions,
+                      // )),
                       TitleButton(image: Images.chats, title: getTranslated('chats', context), navigateTo: InboxScreen()),
-                      TitleButton(image: Images.privacy_policy, title: getTranslated('privacy_policy', context), navigateTo: HtmlViewScreen(
-                        title: getTranslated('privacy_policy', context),
-                        url: Provider.of<SplashProvider>(context, listen: false).configModel.termsConditions,
-                      )),
-                      TitleButton(image: Images.help_center, title: getTranslated('faq', context), navigateTo: FaqScreen(
-                        title: getTranslated('faq', context),
-                        // url: Provider.of<SplashProvider>(context, listen: false).configModel.staticUrls.faq,
-                      )),
-                      TitleButton(image: Images.about_us, title: getTranslated('about_us', context), navigateTo: HtmlViewScreen(
-                        title: getTranslated('about_us', context),
-                        url: Provider.of<SplashProvider>(context, listen: false).configModel.aboutUs,
-                      )),
 
-                      TitleButton(image: Images.contact_us, title: getTranslated('contact_us', context), navigateTo: WebViewScreen(
+                      // TitleButton(image: Images.privacy_policy, title: getTranslated('privacy_policy', context), navigateTo: HtmlViewScreen(
+                      //   title: getTranslated('privacy_policy', context),
+                      //   url: Provider.of<SplashProvider>(context, listen: false).configModel.termsConditions,
+                      // )),
+                      // TitleButton(image: Images.awal_image, title: getTranslated('faq', context), navigateTo: FaqScreen(
+                      //   title: getTranslated('faq', context),
+                      //   // url: Provider.of<SplashProvider>(context, listen: false).configModel.staticUrls.faq,
+                      // )),
+                      // TitleButton(image: Images.about_us, title: getTranslated('about_us', context), navigateTo: HtmlViewScreen(
+                      //   title: getTranslated('about_us', context),
+                      //   url: Provider.of<SplashProvider>(context, listen: false).configModel.aboutUs,
+                      // )),
+
+                      TitleButton(image: Images.contact_us, title: getTranslated('contact_us', context), navigateTo: HtmlViewScreen(
                         title: getTranslated('contact_us', context),
                         url: Provider.of<SplashProvider>(context, listen: false).configModel.staticUrls.contactUs,
                       )),
-                      ListTile(
-                        leading: Image.asset(Images.logo_image, width: 25, height: 25, fit: BoxFit.fill, color: ColorResources.getPrimary(context)),
-                        title: Text(getTranslated('app_info', context), style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
-                        trailing: Text(version??''),
+
+                      isGuestMode
+                          ? SizedBox()
+                          : ListTile(
+                        leading: Icon(Icons.exit_to_app, size: 25),
+                        title: Text(getTranslated('sign_out', context), style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+                        onTap: () => showAnimatedDialog(context, SignOutConfirmationDialog(), isFlip: true),
                       ),
 
+                      ListTile(
 
+                        title: Text(getTranslated('app_info', context), textAlign: TextAlign.right,style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+                        leading: Image.asset(Images.awal_image, width: 35, height: 100, fit: BoxFit.fill, alignment: Alignment.center),
+                        // trailing: Text(version??''),
+                      ),
                     ]),
               ),
             ),
@@ -549,6 +650,7 @@ class _HomePageState extends State<HomePage> {
         ),
 
       ),
+
     );
   }
 }
@@ -571,5 +673,86 @@ class SliverDelegate extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(SliverDelegate oldDelegate) {
     return oldDelegate.maxExtent != 70 || oldDelegate.minExtent != 70 || child != oldDelegate.child;
+  }
+}
+class SquareButton extends StatelessWidget {
+  final String image;
+  final String title;
+  final Widget navigateTo;
+  final int count;
+  final bool hasCount;
+
+
+  SquareButton({@required this.image, @required this.title, @required this.navigateTo, @required this.count, @required this.hasCount});
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width - 100;
+    return InkWell(
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => navigateTo)),
+      child: Column(children: [
+        Container(
+          width: width / 4,
+          height: width / 4,
+          padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: ColorResources.getPrimary(context),
+          ),
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Image.asset(image, color: Theme.of(context).highlightColor),
+              hasCount?
+              Positioned(top: -4, right: -4,
+                child: Consumer<CartProvider>(builder: (context, cart, child) {
+                  return CircleAvatar(radius: 7, backgroundColor: ColorResources.RED,
+                    child: Text(count.toString(),
+                        style: titilliumSemiBold.copyWith(color: ColorResources.WHITE, fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
+                        )),
+                  );
+                }),
+              ):SizedBox(),
+            ],
+          ),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Text(title, style: titilliumRegular),
+        ),
+      ]),
+    );
+  }
+}
+
+class TitleButton extends StatelessWidget {
+  final String image;
+  final String title;
+  final Widget navigateTo;
+  TitleButton({@required this.image, @required this.title, @required this.navigateTo});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Image.asset(image, width: 35, height: 35, fit: BoxFit.fill),
+      title: Text(title, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+      onTap: () => Navigator.push(
+        context,
+        /*PageRouteBuilder(
+            transitionDuration: Duration(seconds: 1),
+            pageBuilder: (context, animation, secondaryAnimation) => navigateTo,
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              animation = CurvedAnimation(parent: animation, curve: Curves.bounceInOut);
+              return ScaleTransition(scale: animation, child: child, alignment: Alignment.center);
+            },
+          ),*/
+        MaterialPageRoute(builder: (_) => navigateTo),
+      ),
+      /*onTap: () => Navigator.push(context, PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => navigateTo,
+        transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(opacity: animation, child: child),
+        transitionDuration: Duration(milliseconds: 500),
+      )),*/
+    );
   }
 }

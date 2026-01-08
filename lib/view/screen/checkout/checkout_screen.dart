@@ -372,7 +372,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_SMALL,bottom: 5),
                           child: Center(
                             child: TextField(controller: _controller, decoration: InputDecoration(
-                              hintText:(getTranslated('Have a coupon',context)),
+                              hintText: 'Have a coupon?',
                               hintStyle: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),
                               filled: false,
                               fillColor: ColorResources.getIconBg(context),

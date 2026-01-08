@@ -35,7 +35,7 @@ class AllCategoryScreen extends StatelessWidget {
                   height: double.infinity,
                   decoration: BoxDecoration(
                     color: Theme.of(context).highlightColor,
-                    boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 200], spreadRadius: 0, blurRadius: 1)],
+                    boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 200], spreadRadius: 1, blurRadius: 1)],
                   ),
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),

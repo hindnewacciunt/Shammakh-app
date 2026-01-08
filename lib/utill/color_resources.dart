@@ -5,10 +5,12 @@ import 'package:provider/provider.dart';
 class ColorResources {
 
   static Color getColombiaBlue(BuildContext context) {
-    return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFF678cb5) : Color(0xFF92C6FF);
+    return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xffb56767) : Color(
+        0xFFFF9292);
   }
   static Color getLightSkyBlue(BuildContext context) {
-    return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFFc7c7c7) : Color(0xFF8DBFF6);
+    return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFFc7c7c7) : Color(
+        0xFFF68D8D);
   }
   static Color getHarlequin(BuildContext context) {
     return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFF257800) : Color(0xFF3FCC01);
@@ -48,7 +50,8 @@ class ColorResources {
     return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFF3f4347) : Color(0xFFE2F0FF);
   }
   static Color getSellerTxt(BuildContext context) {
-    return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFF517091) : Color(0xFF92C6FF);
+    return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFF915151) : Color(
+        0xFFFF9292);
   }
   static Color getChatIcon(BuildContext context) {
     return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFFebebeb) : Color(0xFFD4D4D4);
@@ -60,7 +63,8 @@ class ColorResources {
     return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFF167d3c) : Color(0xFF23CB60);
   }
   static Color getFloatingBtn(BuildContext context) {
-    return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFF49698c) : Color(0xFF7DB6F5);
+    return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xff8c4949) : Color(
+        0xFFF57D7D);
   }
   static Color getPrimary(BuildContext context) {
     return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFFf0f0f0) : Theme.of(context).primaryColor;
@@ -85,7 +89,7 @@ class ColorResources {
 
   static const Color BLACK = Color(0xff000000);
   static const Color WHITE = Color(0xffFFFFFF);
-  static const Color LIGHT_SKY_BLUE = Color(0xff8DBFF6);
+  static const Color LIGHT_SKY_BLUE = Color(0xfff68d8d);
   static const Color HARLEQUIN = Color(0xff3FCC01);
   static const Color CERISE = Color(0xffE2206B);
   static const Color GREY = Color(0xffF1F1F1);
@@ -97,22 +101,22 @@ class ColorResources {
   static const Color ICON_BG = Color(0xffF9F9F9);
   static const Color HOME_BG = Color(0xffF0F0F0);
   static const Color IMAGE_BG = Color(0xffE2F0FF);
-  static const Color SELLER_TXT = Color(0xff92C6FF);
+  static const Color SELLER_TXT = Color(0xffff9292);
   static const Color CHAT_ICON_COLOR = Color(0xffD4D4D4);
   static const Color LOW_GREEN = Color(0xffEFF6FE);
   static const Color GREEN = Color(0xff23CB60);
 
   static const Map<int, Color> colorMap = {
-    50: Color(0x10192D6B),
-    100: Color(0x20192D6B),
-    200: Color(0x30192D6B),
-    300: Color(0x40192D6B),
-    400: Color(0x50192D6B),
-    500: Color(0x60192D6B),
-    600: Color(0x70192D6B),
-    700: Color(0x80192D6B),
-    800: Color(0x90192D6B),
-    900: Color(0xff192D6B),
+    50: Color(0x10E27E7E),
+    100: Color(0x20BF5757),
+    200: Color(0x30CD515B),
+    300: Color(0x40B44B4B),
+    400: Color(0x50D43C3C),
+    500: Color(0x60C13848),
+    600: Color(0x70D22736),
+    700: Color(0x80E22323),
+    800: Color(0x90D50E0E),
+    900: Color(0xffe00303),
   };
 
   static const MaterialColor PRIMARY_MATERIAL = MaterialColor(0xFF192D6B, colorMap);

@@ -1,6 +1,6 @@
 import 'package:flutter_shammakh_ecommerce/data/model/response/product_model.dart';
-
-class HomeCategoryProduct {
+import 'language_model.dart';
+class HomeCategoryProduct{
   int id;
   String name;
   String slug;
@@ -12,7 +12,7 @@ class HomeCategoryProduct {
   List<Product> products;
   List<dynamic> translations;
 
-  HomeCategoryProduct(
+  HomeCategoryProduct. getTranslated(
       {this.id,
         this.name,
         this.slug,

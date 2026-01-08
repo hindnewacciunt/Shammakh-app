@@ -7,6 +7,7 @@ class Images {
   static const String home_image = 'assets/images/home.png';
   static const String office_image = 'assets/images/office.png';
   static const String logo_image = 'assets/images/logo.png';
+  static const String awal_image = 'assets/images/awal_image.png';
   static const String logo_with_name_image = 'assets/images/logo_with_name.png';
   static const String message_image = 'assets/images/inbox.png';
   static const String more_image = 'assets/images/more.png';

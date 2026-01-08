@@ -26,7 +26,7 @@ class NetworkInfo {
         }
         isNotConnected ? SizedBox() : ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: isNotConnected ? Colors.grey: Colors.green,
+          backgroundColor: isNotConnected ? Colors.white70 : Colors.green,
           duration: Duration(seconds: isNotConnected ? 600 : 2),
           content: Text(
             isNotConnected ? getTranslated('no_connection', context) : getTranslated('connected', context),

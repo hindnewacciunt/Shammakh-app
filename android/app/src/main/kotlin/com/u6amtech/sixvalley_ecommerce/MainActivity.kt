@@ -1,4 +1,4 @@
-package com.u6amtech.flutter_shammakh_ecom
+package com.awalnet.flutter_shammakh_ecom
 
 import io.flutter.embedding.android.FlutterActivity
 

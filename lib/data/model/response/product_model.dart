@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'language_model.dart'; const String LANG_KEY = 'lang';
 class ProductModel {
   int _totalSize;
   int _limit;

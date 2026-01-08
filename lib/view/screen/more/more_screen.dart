@@ -82,7 +82,8 @@ class _MoreScreenState extends State<MoreScreen> {
           right: Dimensions.PADDING_SIZE_SMALL,
           child: Consumer<ProfileProvider>(
             builder: (context, profile, child) {
-              return Row(children: [
+              return Row(
+                  children: [
                 Padding(
                   padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_LARGE),
                   child: Image.asset(Images.logo_with_name_image, height: 35, color: ColorResources.WHITE),
@@ -98,7 +99,8 @@ class _MoreScreenState extends State<MoreScreen> {
                       }
                     }
                   },
-                  child: Row(children: [
+                  child: Row(
+                      children: [
                     Text(!isGuestMode ? profile.userInfoModel != null ? '${profile.userInfoModel.fName} ${profile.userInfoModel.lName}' : 'Full Name' : 'Guest',
                         style: titilliumRegular.copyWith(color: ColorResources.WHITE)),
                     SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
@@ -122,7 +124,7 @@ class _MoreScreenState extends State<MoreScreen> {
           margin: EdgeInsets.only(top: 120),
           decoration: BoxDecoration(
             color: ColorResources.getIconBg(context),
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+            // borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(10)),
           ),
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
@@ -130,13 +132,13 @@ class _MoreScreenState extends State<MoreScreen> {
                 children: [
                   SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
 
-                  // Top Row Items
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                    SquareButton(image: Images.shopping_image, title: getTranslated('orders', context), navigateTo: OrderScreen(),count: 1,hasCount: false,),
-                    SquareButton(image: Images.cart_image, title: getTranslated('CART', context), navigateTo: CartScreen(),count: Provider.of<CartProvider>(context,listen: false).cartList.length, hasCount: true,),
-                    SquareButton(image: Images.offers, title: getTranslated('offers', context), navigateTo: OffersScreen(),count: 0,hasCount: false,),
-                    SquareButton(image: Images.wishlist, title: getTranslated('wishlist', context), navigateTo: WishListScreen(),count: Provider.of<AuthProvider>(context, listen: false).isLoggedIn() && Provider.of<WishListProvider>(context, listen: false).wishList != null && Provider.of<WishListProvider>(context, listen: false).wishList.length > 0 ?   Provider.of<WishListProvider>(context, listen: false).wishList.length : 0, hasCount: false,),
-                  ]),
+                  // // Top Row Items
+                  // Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                  //   SquareButton(image: Images.shopping_image, title: getTranslated('orders', context), navigateTo: OrderScreen(),count: 1,hasCount: false,),
+                  //   SquareButton(image: Images.cart_image, title: getTranslated('CART', context), navigateTo: CartScreen(),count: Provider.of<CartProvider>(context,listen: false).cartList.length, hasCount: true,),
+                  //   SquareButton(image: Images.offers, title: getTranslated('offers', context), navigateTo: OffersScreen(),count: 0,hasCount: false,),
+                  //   SquareButton(image: Images.wishlist, title: getTranslated('wishlist', context), navigateTo: WishListScreen(),count: Provider.of<AuthProvider>(context, listen: false).isLoggedIn() && Provider.of<WishListProvider>(context, listen: false).wishList != null && Provider.of<WishListProvider>(context, listen: false).wishList.length > 0 ?   Provider.of<WishListProvider>(context, listen: false).wishList.length : 0, hasCount: false,),
+                  // ]),
                   SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
                   // Buttons
@@ -191,56 +193,56 @@ class _MoreScreenState extends State<MoreScreen> {
     );
   }
 }
-
-class SquareButton extends StatelessWidget {
-  final String image;
-  final String title;
-  final Widget navigateTo;
-  final int count;
-  final bool hasCount;
-
-
-  SquareButton({@required this.image, @required this.title, @required this.navigateTo, @required this.count, @required this.hasCount});
-
-  @override
-  Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width - 100;
-    return InkWell(
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => navigateTo)),
-      child: Column(children: [
-        Container(
-          width: width / 4,
-          height: width / 4,
-          padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: ColorResources.getPrimary(context),
-          ),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Image.asset(image, color: Theme.of(context).highlightColor),
-              hasCount?
-              Positioned(top: -4, right: -4,
-                child: Consumer<CartProvider>(builder: (context, cart, child) {
-                  return CircleAvatar(radius: 7, backgroundColor: ColorResources.RED,
-                    child: Text(count.toString(),
-                        style: titilliumSemiBold.copyWith(color: ColorResources.WHITE, fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
-                        )),
-                  );
-                }),
-              ):SizedBox(),
-            ],
-          ),
-        ),
-        Align(
-          alignment: Alignment.center,
-          child: Text(title, style: titilliumRegular),
-        ),
-      ]),
-    );
-  }
-}
+//
+// class SquareButton extends StatelessWidget {
+//   final String image;
+//   final String title;
+//   final Widget navigateTo;
+//   final int count;
+//   final bool hasCount;
+//
+//
+//   SquareButton({@required this.image, @required this.title, @required this.navigateTo, @required this.count, @required this.hasCount});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     double width = MediaQuery.of(context).size.width - 100;
+//     return InkWell(
+//       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => navigateTo)),
+//       child: Column(children: [
+//         Container(
+//           width: width / 4,
+//           height: width / 4,
+//           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(10),
+//             color: ColorResources.getPrimary(context),
+//           ),
+//           child: Stack(
+//             clipBehavior: Clip.none,
+//             children: [
+//               Image.asset(image, color: Theme.of(context).highlightColor),
+//               hasCount?
+//               Positioned(top: -4, right: -4,
+//                 child: Consumer<CartProvider>(builder: (context, cart, child) {
+//                   return CircleAvatar(radius: 7, backgroundColor: ColorResources.RED,
+//                     child: Text(count.toString(),
+//                         style: titilliumSemiBold.copyWith(color: ColorResources.WHITE, fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
+//                         )),
+//                   );
+//                 }),
+//               ):SizedBox(),
+//             ],
+//           ),
+//         ),
+//         Align(
+//           alignment: Alignment.center,
+//           child: Text(title, style: titilliumRegular),
+//         ),
+//       ]),
+//     );
+//   }
+// }
 
 class TitleButton extends StatelessWidget {
   final String image;
@@ -251,7 +253,7 @@ class TitleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset(image, width: 25, height: 25, fit: BoxFit.fill, color: ColorResources.getPrimary(context)),
+      leading: Image.asset(image, width: 21, height: 25, fit: BoxFit.fill),
       title: Text(title, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
       onTap: () => Navigator.push(
         context,

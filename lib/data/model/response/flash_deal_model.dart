@@ -1,3 +1,4 @@
+import 'language_model.dart';
 class FlashDealModel {
   int _id;
   String _title;

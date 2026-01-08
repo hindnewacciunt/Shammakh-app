@@ -121,7 +121,6 @@ class BannersView extends StatelessWidget {
                   ),
                 ],
               ) : Center(child: Text('No banner available')) : Shimmer.fromColors(
-              // ) : Center(child: Text(getTranslated('No banner available',context)),): Shimmer.fromColors(
                 baseColor: Colors.grey[300],
                 highlightColor: Colors.grey[100],
                 enabled: bannerProvider.mainBannerList == null,

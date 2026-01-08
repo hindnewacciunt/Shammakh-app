@@ -21,7 +21,6 @@ class BannerProvider extends ChangeNotifier {
   List<BannerModel> get footerBannerList => _footerBannerList;
   List<BannerModel> get mainSectionBannerList => _mainSectionBannerList;
   Product get product => _product;
-
   int get currentIndex => _currentIndex;
 
   Future<void> getBannerList(bool reload, BuildContext context) async {

@@ -29,8 +29,8 @@ class CategoryView extends StatelessWidget {
             childAspectRatio: (1/1.3),
           ),
           itemCount: isHomePage
-              ? categoryProvider.categoryList.length > 8
-                 ? 8
+              ? categoryProvider.categoryList.length > 4
+                 ? 4
                  : categoryProvider.categoryList.length
               : categoryProvider.categoryList.length,
           shrinkWrap: true,
@@ -48,7 +48,7 @@ class CategoryView extends StatelessWidget {
               child: Column( children: [
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Theme.of(context).primaryColor.withOpacity(.2)),
+                    // border: Border.all(color: Theme.of(context).primaryColor.withOpacity(.1)),
                     borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
                     color: Theme.of(context).highlightColor,
                     // boxShadow: [BoxShadow(

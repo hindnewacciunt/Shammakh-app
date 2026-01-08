@@ -36,8 +36,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     _screens = [
       HomePage(),
       singleVendor?OrderScreen(isBacButtonExist: false): InboxScreen(isBackButtonExist: false) ,
-      singleVendor?NotificationScreen(isBacButtonExist: false): OrderScreen(isBacButtonExist: false),
-      singleVendor?OffersScreen(): OffersScreen(),
+      singleVendor? NotificationScreen(isBacButtonExist: false): OrderScreen(isBacButtonExist: false),
+      singleVendor? OffersScreen(): OrderScreen(),
       singleVendor?SizedBox(): OffersScreen(),
     ];
 
@@ -85,8 +85,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     return BottomNavigationBarItem(
 
       icon: Image.asset(
-        icon, color: index == _pageIndex ? Theme.of(context).primaryColor : Theme.of(context).textTheme.bodyText1.color.withOpacity(0.5),
-        height: 25, width: 25,
+        icon,
+        height: 45, width: 45,
       ),
       label: label,
     );
@@ -98,6 +98,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       _pageIndex = pageIndex;
     });
   }
+
   List<BottomNavigationBarItem> _getBottomWidget(bool isSingleVendor) {
     List<BottomNavigationBarItem> _list = [];
     _list.add(_barItem(Images.home_image, getTranslated('home', context), 0));
@@ -107,7 +108,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     _list.add(_barItem(Images.shopping_image, getTranslated('orders', context), 2));
     _list.add(_barItem(Images.notification, getTranslated('notification', context), 3));
     _list.add(_barItem(Images.offers, getTranslated('offers', context), 4));
-    _list.add(_barItem(Images.more_image, getTranslated('more', context), 5));
     return _list;
   }
 
